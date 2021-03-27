@@ -1,6 +1,7 @@
 function changeColors(color) {
-    for (let i = 0; i < colorsSquares.length; i++) {
-        colorsSquares[i].style.backgroundColor = color
+    squares = document.querySelectorAll(".square")
+    for (let i = 0; i < squares.length; i++) {
+        squares[i].style.backgroundColor = color
     }
 }
 
@@ -53,11 +54,9 @@ let restartGame = (difficultyMode = "hard") => {
     pickedColor = pickColor()
     document.querySelector("#colorDisplay").textContent = pickedColor.toUpperCase()
 
-    let colorsSquares = document.querySelectorAll(".square")
-
-    for (let i = 0; i < colorsSquares.length; i++) {
-        colorsSquares[i].style.backgroundColor = colors[i]
-        colorsSquares[i].addEventListener("click", function () {
+    for (let i = 0; i < squares.length; i++) {
+        squares[i].style.backgroundColor = colors[i]
+        squares[i].addEventListener("click", function () {
             let clickedColor = this.style.backgroundColor
             if (clickedColor !== pickedColor) {
                 this.style.backgroundColor = document.body.style.backgroundColor
