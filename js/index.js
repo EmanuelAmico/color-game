@@ -79,12 +79,12 @@ function listenButtons() {
     document.querySelector("#easy").addEventListener("click", function () {
         this.classList.remove("btn-outline-light")
         this.classList.add("btn-light")
-        document.querySelector("#selected").classList.remove("btn-light")
-        document.querySelector("#selected").classList.add("btn-outline-light")
+        document.querySelector("#hard").classList.remove("btn-light")
+        document.querySelector("#hard").classList.add("btn-outline-light")
         restartGame("easy")
     })
 
-    document.querySelector("#selected").addEventListener("click", function () {
+    document.querySelector("#hard").addEventListener("click", function () {
         this.classList.remove("btn-outline-light")
         this.classList.add("btn-light")
         document.querySelector("#easy").classList.remove("btn-light")

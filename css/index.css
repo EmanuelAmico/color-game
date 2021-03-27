@@ -10,6 +10,10 @@ body{
     background-color: #232323;
 }
 
+h1{
+    transition: 0.8s;
+}
+
 .square{
     float: left;
     width: 30%;
