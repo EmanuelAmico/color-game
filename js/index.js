@@ -1,7 +1,3 @@
-//COLOR GAME
-
-/* let colors = ["rgb(240, 14, 128)", "rgb(120, 45, 169)", "rgb(2, 144, 28)", "rgb(48, 14, 8)", "rgb(245, 1, 12)", "rgb(40, 1, 28)"] */
-
 function changeColors(color) {
     for (let i = 0; i < colorsSquares.length; i++) {
         colorsSquares[i].style.backgroundColor = color
@@ -28,24 +24,26 @@ function generateRandomColors(arrayLengthDesired) {
     return newArray
 }
 
-function restartGame() {
-    document.querySelector("#reset").textContent="New Colors"
-    document.querySelector("#mensaje").textContent=""
+let restartGame = (difficultyMode = "hard") => {
+    document.querySelector("#reset").textContent = "New Colors"
+    document.querySelector("#mensaje").textContent = ""
     document.querySelector("h1").style.backgroundColor = ""
+
+    difficulty = difficultyMode
 
     let squares = document.querySelectorAll(".square")
 
-    if(difficulty ==="easy"){
+    if (difficulty === "easy") {
         colors = generateRandomColors(3)
-        for(let i=0; i<6; i++){
-            if(!colors[i]){
+        for (let i = 0; i < 6; i++) {
+            if (!colors[i]) {
                 squares[i].style.display = "none"
             }
         }
-    }else{
+    } else {
         colors = generateRandomColors(6)
-        for(let i=0; i<6; i++){
-            if(squares[i].style.display === "none"){
+        for (let i = 0; i < 6; i++) {
+            if (squares[i].style.display === "none") {
                 squares[i].style.display = "block"
             }
         }
@@ -55,7 +53,7 @@ function restartGame() {
     pickedColor = pickColor()
     document.querySelector("#colorDisplay").textContent = pickedColor.toUpperCase()
 
-    colorsSquares = document.querySelectorAll(".square")
+    let colorsSquares = document.querySelectorAll(".square")
 
     for (let i = 0; i < colorsSquares.length; i++) {
         colorsSquares[i].style.backgroundColor = colors[i]
@@ -74,51 +72,37 @@ function restartGame() {
     }
 }
 
-//-----------------------------------------------------------------------------//
+function listenButtons() {
+    document.querySelector("#reset").addEventListener("click", function(){
+        restartGame(difficulty)
+    })
 
-let colors = generateRandomColors(6)
+    document.querySelector("#easy").addEventListener("click", function () {
+        this.classList.remove("btn-outline-light")
+        this.classList.add("btn-light")
+        document.querySelector("#selected").classList.remove("btn-light")
+        document.querySelector("#selected").classList.add("btn-outline-light")
+        restartGame("easy")
+    })
 
-let pickedColor = pickColor()
-document.querySelector("#colorDisplay").textContent = pickedColor.toUpperCase()
-
-let colorsSquares = document.querySelectorAll(".square")
-
-let difficulty = "hard"
-
-for (let i = 0; i < colorsSquares.length; i++) {
-    colorsSquares[i].style.backgroundColor = colors[i]
-    colorsSquares[i].addEventListener("click", function () {
-        let clickedColor = this.style.backgroundColor
-        if (clickedColor !== pickedColor) {
-            this.style.backgroundColor = document.body.style.backgroundColor
-            document.querySelector("#mensaje").textContent = "Try Again!"
-        } else {
-            document.querySelector("#mensaje").textContent = "Correct!"
-            document.querySelector("h1").style.backgroundColor = clickedColor
-            changeColors(clickedColor)
-            document.querySelector("#reset").textContent = "Play Again?"
-        }
+    document.querySelector("#selected").addEventListener("click", function () {
+        this.classList.remove("btn-outline-light")
+        this.classList.add("btn-light")
+        document.querySelector("#easy").classList.remove("btn-light")
+        document.querySelector("#easy").classList.add("btn-outline-light")
+        restartGame("hard")
     })
 }
 
-document.querySelector("#reset").addEventListener("click", restartGame)
-
-document.querySelector("#easy").addEventListener("click", function(){
-    this.classList.remove("btn-outline-light")
-    this.classList.add("btn-light")
-    document.querySelector("#selected").classList.remove("btn-light")
-    document.querySelector("#selected").classList.add("btn-outline-light")
-    difficulty = "easy"
+function init(){
     restartGame()
-})
+    listenButtons()
+}
 
-document.querySelector("#selected").addEventListener("click", function(){
-    this.classList.remove("btn-outline-light")
-    this.classList.add("btn-light")
-    document.querySelector("#easy").classList.remove("btn-light")
-    document.querySelector("#easy").classList.add("btn-outline-light")
-    difficulty = "hard"
-    restartGame()
-})
+//-----------------------------------------------------------------------------//
 
+let difficulty
+let colors
+let pickedColor
 
+init()
