@@ -72,11 +72,14 @@ let restartGame = (difficultyMode = "hard") => {
 }
 
 function listenButtons() {
-    document.querySelector("#reset").addEventListener("click", function(){
+    document.querySelector("#reset").addEventListener("click", function (event) {
         restartGame(difficulty)
     })
 
     document.querySelector("#easy").addEventListener("click", function () {
+        if(this.classList.contains("btn-light")){
+            return null
+        }
         this.classList.remove("btn-outline-light")
         this.classList.add("btn-light")
         document.querySelector("#hard").classList.remove("btn-light")
@@ -85,6 +88,9 @@ function listenButtons() {
     })
 
     document.querySelector("#hard").addEventListener("click", function () {
+        if(this.classList.contains("btn-light")){
+            return null
+        }
         this.classList.remove("btn-outline-light")
         this.classList.add("btn-light")
         document.querySelector("#easy").classList.remove("btn-light")
@@ -93,7 +99,7 @@ function listenButtons() {
     })
 }
 
-function init(){
+function init() {
     restartGame()
     listenButtons()
 }
